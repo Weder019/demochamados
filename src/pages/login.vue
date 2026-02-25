@@ -11,8 +11,17 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="5" lg="4">
         <v-card class="elevation-12 rounded-lg">
-          <v-card-title class="text-h5 text-center pa-6 bg-primary">
-            <span class="text-white font-weight-bold">Demo Chamados</span>
+          <v-card-title class="text-center pa-8" style="background-color: #0a2936 !important;">
+            <div class="d-flex flex-column align-center justify-center">
+              <v-img
+                src="@/assets/logo.png"
+                max-width="150"
+                height="auto"
+                class="mb-4"
+                alt="Logo"
+              />
+              <span class="text-white font-weight-bold text-h5">Demo Sistema de chamados</span>
+            </div>
           </v-card-title>
 
           <v-card-text class="pa-8">
@@ -53,7 +62,7 @@
                   class="text-decoration-none text-primary"
                   @click.prevent="handleForgotPassword"
                 >
-                  Forgot your password?
+                  Esqueceu sua senha?
                 </a>
               </div>
 
@@ -66,7 +75,7 @@
                 :loading="isLoading"
                 class="text-none font-weight-bold"
               >
-                Login
+                Entrar
               </v-btn>
             </v-form>
           </v-card-text>
@@ -87,7 +96,7 @@
           variant="text"
           @click="hideToast"
         >
-          Close
+          Fechar
         </v-btn>
       </template>
     </v-snackbar>
@@ -124,14 +133,14 @@ const isTypingCpf = ref(false)
 
 // Computed Properties
 const usernameLabel = computed(() => {
-  return isTypingCpf.value ? 'CPF' : 'Email or CPF'
+  return isTypingCpf.value ? 'CPF' : 'Email ou CPF'
 })
 
 const usernamePlaceholder = computed(() => {
-  return isTypingCpf.value ? '000.000.000-00' : 'email@example.com or CPF'
+  return isTypingCpf.value ? '000.000.000-00' : 'email@exemplo.com ou CPF'
 })
 
-const passwordLabel = 'Password'
+const passwordLabel = 'Senha'
 
 const formattedUsername = computed({
   get: () => {
@@ -190,7 +199,7 @@ const onPasswordBlur = () => {
 
 const handleForgotPassword = () => {
   // TODO: Implement forgot password functionality
-  showError('Forgot password functionality coming soon!')
+  showError('Funcionalidade de esqueci a senha em breve!')
 }
 
 const validateForm = (): boolean => {
@@ -209,7 +218,7 @@ const validateForm = (): boolean => {
   if (!passwordValidation.isValid) {
     passwordError.value = true
     passwordErrorMessage.value = passwordValidation.error || ''
-    showError('Password cannot be empty')
+    showError('A senha não pode ser vazia')
     isValid = false
   }
 
@@ -240,11 +249,11 @@ const handleLogin = async () => {
       router.push('/')
     } else {
       // Show error toast for invalid credentials
-      showError('Invalid username or password')
+      showError('Usuário ou senha inválidos')
     }
   } catch (error) {
     console.error('Login error:', error)
-    showError('An error occurred. Please try again.')
+    showError('Ocorreu um erro. Por favor, tente novamente.')
   }
 }
 </script>
@@ -252,18 +261,18 @@ const handleLogin = async () => {
 <style scoped>
 .fill-height {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #103F53 0%, #2a5d72 100%);
 }
 
 .bg-primary {
-  background-color: #1d39b5 !important;
+  background-color: #103F53 !important;
 }
 
 .text-primary {
-  color: #1d39b5 !important;
+  color: #103F53 !important;
 }
 
 :deep(.v-btn--variant-elevated) {
-  background-color: #1d39b5 !important;
+  background-color: #103F53 !important;
 }
 </style>

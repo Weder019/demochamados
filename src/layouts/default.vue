@@ -11,14 +11,22 @@
       v-model="drawer"
       :rail="rail"
       permanent
-      color="primary"
+      color="#0a2936"
       theme="dark"
       class="sidebar"
     >
       <template #prepend>
         <div class="pa-4">
           <div class="d-flex align-center justify-space-between mb-4">
-            <h2 v-if="!rail" class="text-h6 font-weight-bold">Demo Chamados</h2>
+            <div v-if="!rail" class="d-flex align-center w-100">
+              <v-img
+                src="@/assets/logo.png"
+                max-width="140"
+                height="auto"
+                class="mx-auto"
+                alt="Logo"
+              />
+            </div>
             <v-btn
               :icon="rail ? 'mdi-menu' : 'mdi-menu-open'"
               variant="text"
@@ -48,8 +56,7 @@
       elevation="1"
     >
       <v-app-bar-title class="text-primary font-weight-bold">
-        <v-icon icon="mdi-calendar-check" class="mr-2" />
-        Demo Chamados
+        Demo Sistema de chamados
       </v-app-bar-title>
 
       <v-spacer />
@@ -67,7 +74,7 @@
           <v-list-item @click="handleLogout">
             <v-list-item-title>
               <v-icon icon="mdi-logout" size="small" class="mr-2" />
-              Logout
+              Sair
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -92,12 +99,12 @@ const rail = ref(false)
 
 const menuItems = ref([
   {
-    title: 'Create New Appointment',
+    title: 'Criar Novo Chamado',
     icon: 'mdi-calendar-plus',
     to: '/appointments/new'
   },
   {
-    title: 'View Appointments',
+    title: 'Visualizar Chamados',
     icon: 'mdi-calendar-search',
     to: '/appointments'
   }
