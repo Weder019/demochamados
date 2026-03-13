@@ -10,17 +10,18 @@
   <v-container fluid class="pa-6">
       <v-row>
         <v-col cols="12">
-          <h1 class="text-h4 font-weight-bold mb-6">Create New Appointment</h1>
+          <h1 class="text-h4 font-weight-bold mb-2 text-primary">Criar Novo Chamado</h1>
+          <v-divider class="mb-6"></v-divider>
         </v-col>
       </v-row>
 
       <!-- Patient Card -->
       <v-row>
-        <v-col cols="12" md="6">
+        <v-col cols="12">
           <v-card elevation="2" class="mb-4">
             <v-card-title class="bg-grey-lighten-4">
               <v-icon icon="mdi-account" class="mr-2" />
-              Patient
+              Paciente
             </v-card-title>
 
             <v-card-text class="pa-6">
@@ -51,7 +52,7 @@
               <!-- Name Field -->
               <v-text-field
                 v-model="patientData.name"
-                label="Name"
+                label="Nome"
                 variant="outlined"
                 :disabled="!patientFound"
                 density="comfortable"
@@ -62,7 +63,7 @@
               <!-- Birth Date Field -->
               <v-text-field
                 v-model="formattedBirthDate"
-                label="Birth Date"
+                label="Data de Nascimento"
                 variant="outlined"
                 :disabled="!patientFound"
                 density="comfortable"
@@ -73,11 +74,11 @@
         </v-col>
 
         <!-- Doctor Card -->
-        <v-col cols="12" md="6">
+        <v-col cols="12">
           <v-card elevation="2" class="mb-4">
             <v-card-title class="bg-grey-lighten-4">
               <v-icon icon="mdi-doctor" class="mr-2" />
-              Doctor
+              Médico
             </v-card-title>
 
             <v-card-text class="pa-6">
@@ -86,7 +87,7 @@
                 :items="doctorItems"
                 item-title="display"
                 item-value="id"
-                label="Doctor Name and Specialty"
+                label="Nome do Médico e Especialidade"
                 variant="outlined"
                 density="comfortable"
                 clearable
@@ -108,14 +109,14 @@
           <v-card elevation="2" :disabled="!selectedDoctorId">
             <v-card-title class="bg-grey-lighten-4">
               <v-icon icon="mdi-clock-outline" class="mr-2" />
-              Time Slots
+              Horários Disponíveis
             </v-card-title>
 
             <v-card-text class="pa-6">
               <!-- Date Picker -->
               <v-text-field
                 v-model="formattedDate"
-                label="Date"
+                label="Data"
                 variant="outlined"
                 placeholder="DD/MM/YYYY"
                 :disabled="!selectedDoctorId"
@@ -147,7 +148,7 @@
                   <v-card-actions>
                     <v-spacer />
                     <v-btn
-                      text="Cancel"
+                      text="Cancelar"
                       @click="showDatePicker = false"
                     />
                     <v-btn
@@ -166,18 +167,18 @@
                   color="primary"
                   size="50"
                 />
-                <p class="mt-4 text-body-1">Loading available time slots...</p>
+                <p class="mt-4 text-body-1">Carregando horários disponíveis...</p>
               </div>
 
               <!-- No Date Selected -->
               <div v-else-if="!selectedDateFormatted && selectedDoctorId" class="text-center py-8">
                 <v-icon icon="mdi-calendar-blank" size="64" color="grey" />
-                <p class="mt-4 text-body-1 text-grey">Please select a date to view available time slots</p>
+                <p class="mt-4 text-body-1 text-grey">Por favor, selecione uma data para ver os horários disponíveis</p>
               </div>
 
               <!-- Available Time Slots -->
               <div v-else-if="availableSlots.length > 0">
-                <p class="text-subtitle-1 font-weight-bold mb-4">Available Times:</p>
+                <p class="text-subtitle-1 font-weight-bold mb-4">Horários Disponíveis:</p>
                 <v-row>
                   <v-col
                     v-for="slot in availableSlots"
@@ -204,7 +205,7 @@
               <!-- No Slots Available -->
               <div v-else-if="selectedDateFormatted" class="text-center py-8">
                 <v-icon icon="mdi-calendar-remove" size="64" color="warning" />
-                <p class="mt-4 text-body-1 text-warning">No available time slots for this date</p>
+                <p class="mt-4 text-body-1 text-warning">Não há horários disponíveis para esta data</p>
               </div>
             </v-card-text>
           </v-card>
@@ -248,7 +249,7 @@
           variant="text"
           @click="hideToast"
         >
-          Close
+          Fechar
         </v-btn>
       </template>
     </v-snackbar>
@@ -337,7 +338,7 @@ const onCpfInput = () => {
 
 const handleSearchPatient = async () => {
   if (!isCpfValid.value) {
-    showError('Invalid CPF format')
+    showError('Formato de CPF inválido')
     return
   }
 
@@ -347,9 +348,9 @@ const handleSearchPatient = async () => {
     patientData.value.name = result.patient.name
     patientData.value.birthDate = result.patient.birthDate
     patientFound.value = true
-    showSuccess('Patient found successfully')
+    showSuccess('Paciente encontrado com sucesso')
   } else {
-    showError('CPF not found')
+    showError('CPF não encontrado')
     patientData.value.name = ''
     patientData.value.birthDate = ''
     patientFound.value = false
@@ -365,8 +366,10 @@ const onDoctorSelect = () => {
   selectedTimeSlot.value = ''
 }
 
-const onDateSelect = (date: Date) => {
-  selectedDate.value = date
+const onDateSelect = (date: Date | null) => {
+  if (date) {
+    selectedDate.value = date
+  }
 }
 
 const confirmDateSelection = async () => {
@@ -396,14 +399,14 @@ const handleBookAppointment = async () => {
     // Simulate booking
     await new Promise(resolve => setTimeout(resolve, 1500))
     
-    showSuccess('Appointment booked successfully!')
+    showSuccess('Chamado agendado com sucesso!')
     
     // Reset form after 2 seconds
     setTimeout(() => {
       router.push('/appointments')
     }, 2000)
   } catch (error) {
-    showError('Failed to book appointment')
+    showError('Falha ao agendar chamado')
   } finally {
     isBooking.value = false
   }

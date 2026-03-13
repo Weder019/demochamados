@@ -2,7 +2,7 @@
   <v-container fluid class="pa-6">
     <v-row>
       <v-col cols="12">
-        <h1 class="text-h4 font-weight-bold mb-6">View Appointments</h1>
+        <h1 class="text-h4 font-weight-bold mb-6">Visualizar Chamados</h1>
       </v-col>
     </v-row>
 
@@ -11,9 +11,9 @@
         <v-card elevation="2">
           <v-card-text class="text-center pa-12">
             <v-icon icon="mdi-calendar-search" size="100" color="grey-lighten-1" />
-            <h2 class="text-h5 mt-6 mb-4">Coming Soon</h2>
+            <h2 class="text-h5 mt-6 mb-4">Em breve</h2>
             <p class="text-body-1 text-grey">
-              This page will display all scheduled appointments
+              Esta página exibirá todos os chamados agendados
             </p>
             <v-btn
               color="primary"
@@ -22,7 +22,7 @@
               to="/appointments/new"
             >
               <v-icon icon="mdi-calendar-plus" class="mr-2" />
-              Create New Appointment
+              Criar Novo Chamado
             </v-btn>
           </v-card-text>
         </v-card>

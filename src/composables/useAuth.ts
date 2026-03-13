@@ -46,11 +46,11 @@ export const useAuth = () => {
    */
   const formatCpf = (value: string): string => {
     const cleanValue = value.replace(/\D/g, '')
-    
+
     if (cleanValue.length <= 3) return cleanValue
     if (cleanValue.length <= 6) return `${cleanValue.slice(0, 3)}.${cleanValue.slice(3)}`
     if (cleanValue.length <= 9) return `${cleanValue.slice(0, 3)}.${cleanValue.slice(3, 6)}.${cleanValue.slice(6)}`
-    
+
     return `${cleanValue.slice(0, 3)}.${cleanValue.slice(3, 6)}.${cleanValue.slice(6, 9)}-${cleanValue.slice(9, 11)}`
   }
 
@@ -59,20 +59,20 @@ export const useAuth = () => {
    */
   const validateUsername = (username: string): ValidationResult => {
     if (!username) {
-      return { isValid: false, error: 'Username cannot be empty' }
+      return { isValid: false, error: 'O usuário não pode ser vazio' }
     }
 
     const cleanUsername = username.replace(/\D/g, '')
-    
+
     // If it contains @, must be a valid email
     if (username.includes('@')) {
       if (!isEmail(username)) {
-        return { isValid: false, error: 'Invalid email format' }
+        return { isValid: false, error: 'Formato de e-mail inválido' }
       }
     } else {
       // Otherwise, must be a valid CPF (11 digits)
       if (cleanUsername.length !== 11) {
-        return { isValid: false, error: 'CPF must have 11 digits' }
+        return { isValid: false, error: 'O CPF deve ter 11 dígitos' }
       }
     }
 
@@ -84,7 +84,7 @@ export const useAuth = () => {
    */
   const validatePassword = (password: string): ValidationResult => {
     if (!password || password.trim() === '') {
-      return { isValid: false, error: 'Password cannot be empty' }
+      return { isValid: false, error: 'A senha não pode ser vazia' }
     }
 
     return { isValid: true }
@@ -112,9 +112,9 @@ export const useAuth = () => {
         return { success: true }
       }
 
-      return { 
-        success: false, 
-        error: 'Invalid username or password' 
+      return {
+        success: false,
+        error: 'Usuário ou senha inválidos'
       }
     } finally {
       isLoading.value = false
